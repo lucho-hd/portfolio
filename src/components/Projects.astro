@@ -1,0 +1,72 @@
+---
+import ExternalLinkIcon from "../icons/ExternalLink.astro";
+import GitHubIcon       from "../icons/GitHub.astro";
+
+const PROJECTS = [
+    {
+        title: 'Cloudnet',
+        description: 'Servicio de hosting con la posibilidad de contratar diferentes opciones de contratación. El sitio incluye registro de usuarios, un panel para el usuario administrador y sistema de chat entre el usuario administrador y el usuario común. Además cuenta con el servicio de Firebase como base de datos para el almacenamiento de todos los datos del sitio.',
+        github: 'https://github.com/lucho-hd/cloudnet',
+        image:'img/projects/cloudnet.webp',
+        tags: ['Vue', 'Firebase', 'CSS', 'Bootstrap 5', 'JavaScript', 'HTML' ],
+    },
+    {
+        title: 'Cineflix',
+        description: 'Sitio de películas inspirado en Cuevana 3. Todas las series y películas fueron sacadas de la API de TheMovieDB (TMDB). La aplicación cuenta con la posibilidad de descargarse en desktop.',
+        github: 'https://github.com/lucho-hd/Cineflix/tree/main/pwa-parcial-1-dwm3ah-caruso-luciano',
+        image:'img/projects/cineflix.webp',
+        tags: ['PHP', 'CSS', 'JavaScript', 'MySQL', 'Bootstrap 5'],
+    },
+    {
+        title: 'Pegasus Store',
+        description: 'Ecommerce de venta de artículos deportivos, posibilidad de agregar los productos de la tienda al carrito de compras e incluye la simulación del proceso de checkout.',
+        link: 'https://final-programacion-i.vercel.app',
+        github: 'https://github.com/lucho-hd/Final-programacion-I',
+        image:'img/projects/pegasus_store.webp',
+        tags: ['JavaScript', 'CSS', 'HTML', 'Bootstrap 5'],
+    },
+    {
+        title: 'Gamers Guild',
+        description: 'Ecommerce de videojuegos. Dentro del proyecto se puede encontrar la posibilidad de agregar un juego a la lista de deseados, proceso de checkout con validaciones de los datos ingresados, notificaciones para los productos que fueron añadidos al carrito de compras.',
+        link: 'https://gamers-guild-blond.vercel.app/#/',
+        github: 'https://github.com/lucho-hd/Gamers-Guild',
+        image:'img/projects/gamers_guild.webp',
+        tags: ['Vue', 'CSS', 'HTML', 'Bootstrap 5', 'JavaScript', 'PHP'],
+    },
+]
+---
+
+{
+    PROJECTS.map(({ title, description, link, github, tags, image }) => (
+        <article class="mb-12">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold text-yellow-200 mb-2">{ title }</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    { link && (
+                        <a href={ link } target="_blank" class="flex items-center me-2 hover:text-yellow-200">
+                            <ExternalLinkIcon class="mr-2"/>
+                            Ver demo
+                        </a>
+                    )}
+                    <a href={ github } target="_blank" class="flex items-center me-2 hover:text-yellow-200">
+                        <GitHubIcon class="size-5 mr-2"/>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+            <p class="text-lg mb-4 text-pretty">{ description }</p>
+            <ul class="flex gap-x-4 flex-row mb-5">
+                {tags.map(tag => (
+                    <li>
+                        <span class="flex gap-x-2 rounded-full text-xs py-1 px-2 bg-white/10 ">
+                            { tag }
+                        </span>
+                    </li>
+                ))}
+            </ul>
+            <img class="rounded shadow-2xl shadow-white/10" src={ image } alt= {`Captura de pantalla del proyecto ${ title }`}/>
+        </article>
+    ))
+}

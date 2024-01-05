@@ -1,0 +1,34 @@
+
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const EXPERIENCE = [
+    { 
+        date: 'Noviembre 2020', 
+        title: 'Finalización de la Secundaria',
+        description: 'Finalización de la secundaria en el Instituto Nuestra Señora de Luján',
+    },
+    {
+        date: 'Marzo 2021',
+        title: 'Carrera de Diseño y Desarrollo Web',
+        description: 'Empecé la Carrera de Diseño y Desarrollo Web en el Instituto Leonardo Davinci', 
+    },
+    {
+        date: 'Actualmente...',
+        title: 'Diseñador en Inmobiliaria Morselli e Hijos',
+        description: 'Empecé a trabajar de Diseñador en Inmobiliaria Morselli realizando los posteos de sus principales redes sociales',
+    }
+]
+---
+
+
+<ol class="relative border-s border-gray-200 ml-3">                  
+    {
+        EXPERIENCE.map(experience => (
+            <li class="mb-10 ms-4">
+                <ExperienceItem {...experience}/>
+            </li>
+        ))
+    }
+</ol>
+
