@@ -23,7 +23,7 @@ function useContact() {
         return emailRegex.test(email);
     }
 
-    function handleSubmit() {
+     async function handleSubmit() {
         feedback.value.message = '';
         errors.value = [];
 
@@ -48,6 +48,28 @@ function useContact() {
         if (Object.keys(errors.value).length > 0) {
             return false;
         }
+
+        try {
+            const response = await fetch('netlify/functions/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(fields.value),
+            });
+
+            if (response.ok) {
+                // Éxito en el envío
+                feedback.value.message = 'Formulario enviado con éxito';
+            } else {
+                // Error en el envío
+                feedback.value.type = 'error';
+                feedback.value.message = 'Error al enviar el formulario';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            feedback.value.message = 'Hubo un error al enviar el formulario';
+        }
     }
 
     return {
@@ -60,7 +82,12 @@ function useContact() {
 </script>
 
 <template>
-    <form action="#" method="post" @submit.prevent="handleSubmit" data-netlify="true" name="Contacto" netlify>
+    <form action="/.netlify/functions/contact" method="post" @submit.prevent="handleSubmit" name="Contacto" data-netlify="true" data-netlify-honeypot="bot-field">
+        <div class="hidden">
+            <label>
+               Don't fill this out if you're human: <input name="bot-field" />
+            </label>
+        </div>
         <div class="relative z-0 w-full mb-5 mt-5 group">
             <input 
                 type="email" 
@@ -139,4 +166,3 @@ function useContact() {
         </div>
     </form>
 </template>
-
