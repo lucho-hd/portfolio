@@ -82,7 +82,7 @@ function useContact() {
 </script>
 
 <template>
-    <form action="/.netlify/functions/contact" method="post" @submit.prevent="handleSubmit" name="Contacto" data-netlify="true" data-netlify-honeypot="bot-field">
+    <form method="post" @submit.prevent="handleSubmit" name="Contacto" data-netlify="true" data-netlify-honeypot="bot-field">
         <div class="hidden">
             <label>
                Don't fill this out if you're human: <input name="bot-field" />
