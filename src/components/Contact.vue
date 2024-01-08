@@ -48,28 +48,6 @@ function useContact() {
         if (Object.keys(errors.value).length > 0) {
             return false;
         }
-
-        try {
-            const response = await fetch('netlify/functions/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(fields.value),
-            });
-
-            if (response.ok) {
-                // Éxito en el envío
-                feedback.value.message = 'Formulario enviado con éxito';
-            } else {
-                // Error en el envío
-                feedback.value.type = 'error';
-                feedback.value.message = 'Error al enviar el formulario';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            feedback.value.message = 'Hubo un error al enviar el formulario';
-        }
     }
 
     return {
