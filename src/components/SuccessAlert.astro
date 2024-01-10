@@ -1,0 +1,10 @@
+---
+    import CheckIcon from '../icons/Check.astro';
+---
+
+<div id="success-alert" class="hidden fixed bottom-10 right-2 flex items-center mt-5 p-4 mb-4 text-sm text-white rounded-lg bg-[#232323] dark:bg-gray-800 dark:text-green-400 transition-all ease-in" role="alert">
+    <CheckIcon class="size-5 me-1 text-[#007955]"/>
+    <div>
+        <span class="font-medium">{ Astro.props.alertText }</span>
+    </div>
+</div>  

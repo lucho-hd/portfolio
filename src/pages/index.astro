@@ -7,14 +7,20 @@ import SocialPill     	from '../icons/SocialPill.astro';
 import LinkedInIcon   	from '../icons/LinkedIn.astro'; 
 import GitHubIcon     	from '../icons/GitHub.astro';
 import MailIcon	      	from '../icons/Mail.astro';
-import BriefCase 	  	from '../icons/BriefCase.astro';
+import PaperIcon        from '../icons/Paper.astro';
+import BriefCase 	    from '../icons/BriefCase.astro';
+import ActivityIcon     from '../icons/Activity.astro';
 import CodeIcon			from '../icons/Code.astro';
 
 // Info components
 import Experience 	    from '../components/Experience.astro';
 import SectionContainer from '../components/SectionContainer.astro';
 import Projects			from '../components/Projects.astro';
-import Contact          from '../components/Contact.vue';
+import Skills			from '../components/Skills.astro';
+import Contact          from '../components/Contact.astro';
+
+// Alertas
+import SuccessAlert    from '../components/SuccessAlert.astro';
 ---
 
 <Layout 
@@ -24,41 +30,49 @@ import Contact          from '../components/Contact.vue';
 	<main class="px-4">
 		<SectionContainer class="py-44 pb-24">
 			<img 
-				class="rounded-full size-12 mb-4" 
+				class="rounded-full size-16 mb-4" 
 				src="img/foto-perfil.png" 
 				alt="Foto Luciano Caruso"
 			/>
-			<h1 class="text-white text-2xl md:text-3xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">Hola, soy Luciano Caruso
-				<a href="https://www.linkedin.com/in/luciano-caruso-3433a6238/" class="flex justify-center items-center" target="_blank">
+			<h1 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-col md:flex-row gap-x-4 pb-6 lg:pb-10">Hola, soy Luciano Caruso
+				<a href="https://www.linkedin.com/in/luciano-caruso-3433a6238/" class="flex md:justify-center md:items-center mt-3" target="_blank">
 					<Badge>Disponible para trabajar</Badge>
 				</a>
 			</h1>
-			<h2 class="text-xl lg:text-2xl opacity-80 text-wrap max-w-[700px]">
+			<h2 class="text-base sm:text-lg lg:text-2xl opacity-80 text-wrap max-w-[700px]">
 				Estudiante de la carrera de <span class="text-yellow-200">Diseño y Desarrollo Web</span>, en el <span class="text-yellow-200">Instituto Leonardo Davinci</span>, apasionado por la tecnología.
 				Me gusta seguir aprendiendo nuevas tecnologías, ya que las considero algo de suma importancia en el ámbito de la carrera.
 			</h2>
 
-			<ul class="flex gap-4 flex-wrap">
+			<ul class="flex flex-col md:flex-row md:gap-3 md:flex-wrap">
 				<li>
 					<SocialPill href="https://www.linkedin.com/in/luciano-caruso-3433a6238/">
-						<LinkedInIcon class="size-4 md:size-6"/>
+						<LinkedInIcon class="size-4 sm:size-5 md:size-6"/>
 						LinkedIn
 					</SocialPill>
 				</li>
 				<li>
 					<SocialPill href="https://github.com/lucho-hd">
-						<GitHubIcon class="size-4 md:size-6"/>
+						<GitHubIcon class="size-4 sm:size-5 md:size-6"/>
 						GitHub
 					</SocialPill>
 				</li>
 				<li>
-					<SocialPill class="size-4 md:size-6" href="mailto:lucho200211@gmail.com?subject=Oferta de trabajo para [Nombre del puesto]">
-						<MailIcon/>
+					<SocialPill href="mailto:lucho200211@gmail.com?subject=Oferta de trabajo para [Nombre del puesto]">
+						<MailIcon class="size-4 sm:size-5 md:size-6"/>
 						lucho200211@gmail.com
+					</SocialPill>
+				</li>
+				<li>
+					<SocialPill href="#" id="btn-cv">
+						<PaperIcon class="size-4 sm:size-5 md:size-6"/>
+						Descargar CV
 					</SocialPill>
 				</li>
 			</ul>
 		</SectionContainer>
+
+		<SuccessAlert alertText="CV descargado exitosamente"/>
 
 		<SectionContainer id="experience">
 			<h2 class="text-3xl font-semibold mb-9 flex gap-x-3 items-center">
@@ -67,7 +81,15 @@ import Contact          from '../components/Contact.vue';
 			</h2>
 			<Experience/>
 		</SectionContainer>	
-		
+
+		<SectionContainer id="skills">
+			<h2 class="text-3xl font-semibold mb-9 flex gap-x-3 items-center">				
+				<ActivityIcon class="size-8"/>
+				Habilidades
+			</h2>
+			<Skills/>
+		</SectionContainer>
+
 		<SectionContainer id="projects">
 			<h2 class="text-3xl font-semibold mb-9 flex gap-x-3 items-center">
 				<CodeIcon class="size-8"/>
@@ -80,7 +102,41 @@ import Contact          from '../components/Contact.vue';
 			<h2 class="text-3xl font-semibold mb-9 flex gap-x-3 items-center">
 				Contacto
 			</h2>
-			<Contact client:visible/>
+			<Contact/>
 		</SectionContainer>
 	</main>
 </Layout>
+
+<script type="module">
+	const pdfFileName  = 'src/cv/curriculum_caruso_luciano.pdf';
+	const successAlert = document.getElementById("success-alert");
+
+	/**
+	 * Realiza la descarga del archivo PDF "pdfFileName" en el navegador.
+	 */
+	function handleDownload() {
+		if (event.currentTarget.id === 'btn-cv') {
+        	event.preventDefault();
+    	}
+		
+		const downloadLink = document.createElement('a');
+
+		downloadLink.href = pdfFileName;
+		downloadLink.download = pdfFileName.split('/').pop();
+
+		document.body.appendChild(downloadLink);
+
+		downloadLink.click();
+		document.body.removeChild(downloadLink);
+
+		successAlert.classList.remove("hidden");
+		
+		setTimeout(() => {
+                successAlert.classList.add("hidden");
+            }, 3000);
+		
+	}
+	document.getElementById('btn-cv').addEventListener("click", handleDownload);
+</script>
+
+
