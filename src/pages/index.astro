@@ -1,26 +1,23 @@
 ---
-import Layout         	from '../layouts/Layout.astro';
-import Badge          	from '../components/Badge.astro';
+	import Layout         	from '../layouts/Layout.astro';
+	import Badge          	from '../components/Badge.astro';
 
-// Icons
-import SocialPill     	from '../icons/SocialPill.astro';
-import LinkedInIcon   	from '../icons/LinkedIn.astro'; 
-import GitHubIcon     	from '../icons/GitHub.astro';
-import MailIcon	      	from '../icons/Mail.astro';
-import PaperIcon        from '../icons/Paper.astro';
-import BriefCase 	    from '../icons/BriefCase.astro';
-import ActivityIcon     from '../icons/Activity.astro';
-import CodeIcon			from '../icons/Code.astro';
+	// Icons
+	import SocialPill     	from '../icons/SocialPill.astro';
+	import LinkedInIcon   	from '../icons/LinkedIn.astro'; 
+	import GitHubIcon     	from '../icons/GitHub.astro';
+	import MailIcon	      	from '../icons/Mail.astro';
+	import PaperIcon        from '../icons/Paper.astro';
+	import BriefCase 	    from '../icons/BriefCase.astro';
+	import ActivityIcon     from '../icons/Activity.astro';
+	import CodeIcon			from '../icons/Code.astro';
 
-// Info components
-import Experience 	    from '../components/Experience.astro';
-import SectionContainer from '../components/SectionContainer.astro';
-import Projects			from '../components/Projects.astro';
-import Skills			from '../components/Skills.astro';
-import Contact          from '../components/Contact.astro';
-
-// Alertas
-import SuccessAlert    from '../components/SuccessAlert.astro';
+	// Info components
+	import Experience 	    from '../components/Experience.astro';
+	import SectionContainer from '../components/SectionContainer.astro';
+	import Projects			from '../components/Projects.astro';
+	import Skills			from '../components/Skills.astro';
+	import Contact          from '../components/Contact.astro';
 ---
 
 <Layout 
@@ -72,8 +69,6 @@ import SuccessAlert    from '../components/SuccessAlert.astro';
 			</ul>
 		</SectionContainer>
 
-		<SuccessAlert alertText="CV descargado exitosamente"/>
-
 		<SectionContainer id="experience">
 			<h2 class="text-3xl font-semibold mb-9 flex gap-x-3 items-center">
 				<BriefCase class="size-8"/>
@@ -108,8 +103,7 @@ import SuccessAlert    from '../components/SuccessAlert.astro';
 </Layout>
 
 <script type="module">
-	const pdfFileName  = 'src/cv/curriculum_caruso_luciano.pdf';
-	const successAlert = document.getElementById("success-alert");
+	const pdfFileName  = 'cv/curriculum_caruso_luciano.pdf';
 
 	/**
 	 * Realiza la descarga del archivo PDF "pdfFileName" en el navegador.
@@ -128,13 +122,6 @@ import SuccessAlert    from '../components/SuccessAlert.astro';
 
 		downloadLink.click();
 		document.body.removeChild(downloadLink);
-
-		successAlert.classList.remove("hidden");
-		
-		setTimeout(() => {
-                successAlert.classList.add("hidden");
-            }, 3000);
-		
 	}
 	document.getElementById('btn-cv').addEventListener("click", handleDownload);
 </script>
