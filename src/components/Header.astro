@@ -1,36 +1,136 @@
-<header
-  class={`
-    flex justify-center items-center
-    mx-auto
-    py-5
-    sticky top-0
-    w-auto
-    z-10
-  `}
->
-  <nav
-    class={`
-      border border-black rounded-full
-      px-3 py-1
-      flex flex-row items-center
-    bg-black/50
-      backdrop-blur-2xl
-    `}
+<style>
+  @media (max-width: 779px) {
+    #menu_desktop {
+      display: none !important;
+    }
+  }
+</style>
+
+<header class="sticky top-0 z-30 w-full">
+  <div class="max-w-6xl mx-auto px-4 py-5 flex justify-center">
+    <nav
+      class="flex border border-black rounded-full px-3 py-1 flex-row items-center bg-black/50 backdrop-blur-2xl"
+      id="menu_desktop"
+    >
+      <a class="hover:bg-white/10 rounded-full px-3 transition" href="#top"
+        >Inicio</a
+      >
+      <a
+        class="hover:bg-white/10 rounded-full px-3 transition"
+        href="#experience">Experiencia</a
+      >
+      <a class="hover:bg-white/10 rounded-full px-3 transition" href="#skills"
+        >Habilidades</a
+      >
+      <a class="hover:bg-white/10 rounded-full px-3 transition" href="#projects"
+        >Proyectos</a
+      >
+      <a class="hover:bg-white/10 rounded-full px-3 transition" href="#contact"
+        >Contacto</a
+      >
+    </nav>
+  </div>
+
+  <!-- Botón hamburguesa (absolute top-right) - visible solo en mobile -->
+  <button
+    id="menu-toggle"
+    aria-expanded="false"
+    class="md:hidden absolute bg-black-50 backdrop-blur-2xl rounded-full right-4 top-4 p-2 rounded-full focus:outline-none"
+    aria-label="Abrir menú"
   >
-    <a class="hover:bg-white/10 rounded-full px-3 transition" href="#top">
-      Inicio
-    </a>
-    <a class="hover:bg-white/10 rounded-full px-3 transition" href="#experience">
-      Experiencia
-    </a>
-    <a class="hover:bg-white/10 rounded-full px-3 transition" href="#skills">
-      Habilidades
-    </a>
-    <a class="hover:bg-white/10 rounded-full px-3 transition" href="#projects">
-      Proyectos
-    </a>
-    <a class="hover:bg-white/10 rounded-full px-3 transition" href="#contact">
-      Contacto
-    </a>
-  </nav>
+    <!-- Hamburger -->
+    <svg
+      id="icon-open"
+      class="w-7 h-7"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+    <!-- Close (hidden por defecto) -->
+    <svg
+      id="icon-close"
+      class="w-7 h-7 hidden"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
 </header>
+
+<!-- Menú móvil: animado -->
+<div
+  id="mobile-menu"
+  class="md:hidden flex fixed top-20 left-1/2 -translate-x-1/2 w-11/12
+         flex-col items-center space-y-2 py-4 bg-black/70 text-white border border-black
+         rounded-2xl backdrop-blur-2xl z-40
+         transform scale-y-0 opacity-0 origin-top transition-all duration-300 ease-in-out"
+>
+  <a
+    class="hover:bg-white/10 rounded-full px-3 py-2 w-full text-center transition"
+    href="#top">Inicio</a
+  >
+  <a
+    class="hover:bg-white/10 rounded-full px-3 py-2 w-full text-center transition"
+    href="#experience">Experiencia</a
+  >
+  <a
+    class="hover:bg-white/10 rounded-full px-3 py-2 w-full text-center transition"
+    href="#skills">Habilidades</a
+  >
+  <a
+    class="hover:bg-white/10 rounded-full px-3 py-2 w-full text-center transition"
+    href="#projects">Proyectos</a
+  >
+  <a
+    class="hover:bg-white/10 rounded-full px-3 py-2 w-full text-center transition"
+    href="#contact">Contacto</a
+  >
+</div>
+
+<script>
+  const btn = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const openIcon = document.getElementById("icon-open");
+  const closeIcon = document.getElementById("icon-close");
+
+  let open = false;
+
+  btn?.addEventListener("click", () => {
+    open = !open;
+    if (open) {
+      menu.classList.remove("scale-y-0", "opacity-0");
+      menu.classList.add("scale-y-100", "opacity-100");
+    } else {
+      menu.classList.remove("scale-y-100", "opacity-100");
+      menu.classList.add("scale-y-0", "opacity-0");
+    }
+    // swap icons
+    openIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
+    btn.setAttribute("aria-expanded", open);
+  });
+
+  // Cerrar menú al click en un link
+  menu.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      open = false;
+      menu.classList.remove("scale-y-100", "opacity-100");
+      menu.classList.add("scale-y-0", "opacity-0");
+      openIcon.classList.remove("hidden");
+      closeIcon.classList.add("hidden");
+      btn.setAttribute("aria-expanded", false);
+    });
+  });
+</script>
